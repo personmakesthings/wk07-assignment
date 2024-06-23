@@ -1,0 +1,25 @@
+header {
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    top: 0em;
+    background-color: rgb(255, 241, 215);
+    margin: 0 auto;
+}
+
+nav {  
+    display: flex;
+    width: 100%;
+    background-color: rgb(255, 233, 205);
+}
+
+ul {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    height: 50px;
+    gap: 2em;
+    position: relative;
+    left: -1.55em;
+}

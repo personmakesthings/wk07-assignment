@@ -1,0 +1,23 @@
+.homepage-intro {
+    display: flex;
+    align-items: flex-end;
+    margin: 40px;
+    gap: 30px;
+}
+
+.side-img {
+    height: 280px;
+}
+
+.latest-box {
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    width: 800px;
+    overflow-x: scroll;
+}
+
+.latest-img {
+    margin: 10px;
+    border-radius: 10px;
+}

@@ -1,0 +1,25 @@
+input {
+    margin: 2px;
+}
+
+#submission {
+    width: 800px;
+    display: flex;
+    padding: 10px;
+    gap: 40px;
+    margin: 20px;
+    background-color: rgb(252, 250, 247);
+    border-radius: 10px;
+}
+
+#text-area {
+    width: 370px;
+    height: 250px;
+    resize: none;
+}
+
+#required {
+    color: grey;
+    left: 30px;
+    position: relative;
+}
