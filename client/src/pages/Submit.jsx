@@ -1,3 +1,6 @@
+// IMPORT SERVER DOMAIN
+import serverDomain from "../utils/serverDomain"
+
 // IMPORT STYLESHEETS
 import "./Submit.css"
 
@@ -35,7 +38,7 @@ export default function Submit() {
         event.preventDefault() // Prevents page from refreshing
 
         // POST TO DATABASE
-        fetch("http://localhost:8080/posts", {
+        fetch(`${serverDomain}/posts`, {
             method: "POST",
             body: JSON.stringify(form),
             headers: {"Content-Type": "application/json"}

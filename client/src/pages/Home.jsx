@@ -1,3 +1,6 @@
+// IMPORT SERVER DOMAIN
+import serverDomain from "../utils/serverDomain"
+
 // IMPORT STYLESHEETS
 import "./Home.css"
 
@@ -14,7 +17,7 @@ export default function Home() {
     const [stories, setStories] = useState([])
     useEffect(() => {
         async function fetchStories() {
-            const result = await fetch("http://localhost:8080/posts")
+            const result = await fetch(`${serverDomain}/posts`)
             const stories = await result.json()
             const slice = stories.slice(0, 5) // Only the latest 5 entries
             setStories(slice)

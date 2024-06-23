@@ -1,3 +1,6 @@
+// IMPORT SERVER DOMAIN
+import serverDomain from "../utils/serverDomain"
+
 // IMPORT HOOKS
 import { useState, useEffect } from "react"
 
@@ -10,7 +13,7 @@ export default function Posts() {
 
     useEffect(() => {
         async function fetchStories() {
-            const result = await fetch("http://localhost:8080/posts")
+            const result = await fetch(`${serverDomain}/posts/`)
             const stories = await result.json()
             setStories(stories)
             }

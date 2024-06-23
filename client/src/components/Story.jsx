@@ -1,3 +1,6 @@
+// IMPORT SERVER DOMAIN
+import serverDomain from "../utils/serverDomain"
+
 // IMPORT CSS
 import "./Story.css"
 
@@ -8,7 +11,7 @@ export function Story({story}) {
     function deletePost() {
         let deleteClicked = confirm("Are you sure you want to delete this post?")
         if (deleteClicked === true){
-            fetch(`http://localhost:8080/posts/${story.id}`, {
+            fetch(`${serverDomain}/posts/${story.id}`, {
                 method: "DELETE",
                 headers: {"Content-Type": "application/json"}
             })
