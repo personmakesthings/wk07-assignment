@@ -23,7 +23,7 @@ export default function Home() {
             setStories(slice)
             }
         fetchStories()
-    }, [stories])
+    }, [])
 
     // JSX
     return (

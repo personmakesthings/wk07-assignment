@@ -1,0 +1,11 @@
+#category-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 800px;
+    gap: 5px;
+}
+
+#sort {
+    text-align: center;
+}

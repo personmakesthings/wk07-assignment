@@ -15,6 +15,7 @@ export function Story({story}) {
                 method: "DELETE",
                 headers: {"Content-Type": "application/json"}
             })
+            location.reload()
         }
     }
 

@@ -29,28 +29,60 @@ app.get("/", (req, res) => {
 })
 
 
-// POSTS ROUTE
-// GET REQUEST
-app.get("/posts", async (req, res) => {
-    const result = await db.query(`
+// DATABASE QUERY ROUTES
+// QUERY VARIABLES
+const defaultQuery =
+        `
         SELECT
-        wk07_submissions.*,
-        ARRAY_AGG(wk07_species.species) AS species
-        FROM wk07_submissions 
+            wk07_submissions.*,
+            ARRAY_AGG(wk07_species.species) AS species
+        FROM
+            wk07_submissions 
         LEFT JOIN
-        wk07_submissions_species ON wk07_submissions.id = wk07_submissions_species.submission_id 
+            wk07_submissions_species ON wk07_submissions.id = wk07_submissions_species.submission_id 
         LEFT JOIN
-        wk07_species ON wk07_species.id = wk07_submissions_species.species_id
+            wk07_species ON wk07_species.id = wk07_submissions_species.species_id
+        `
+
+const groupQuery =
+        `
         GROUP BY
-        wk07_submissions.id
+            wk07_submissions.id
         ORDER BY
-        wk07_submissions.id DESC
-    `)
+            wk07_submissions.id DESC
+        `
+
+// GET REQUEST
+//For default query, grabbing posts from database
+app.get("/posts", async (req, res) => {
+    const result = await db.query(
+        `
+        ${defaultQuery}
+        ${groupQuery}
+        `)
+    res.json(result.rows)
+})
+
+
+// GET REQUEST
+// Get posts by species id (i.e. sort by category)
+// e.g. ${serverDomain}/posts/1 - gets all rows under species category `Syrian`, which has an id of 1
+app.get("/posts/:id", async (req, res) => {
+    const storyId = req.params.id
+    const result = await db.query(
+            `
+            ${defaultQuery}
+            WHERE
+                wk07_submissions_species.species_id = $1
+            ${groupQuery}
+            `, 
+        [storyId])
     res.json(result.rows)
 })
 
 
 // POST REQUEST
+// For letting a user post a new entry to the database
 app.post("/posts", async (req, res) => {
     const {submission_date, username, location, hamster_name, hamster_story, img_url, species} = req.body
     const result = await db.query(`INSERT INTO wk07_submissions (submission_date, username, location, hamster_name, hamster_story, img_url, species) VALUES ($1, $2, $3, $4, $5, $6, $7)`, [submission_date, username, location, hamster_name, hamster_story, img_url, species])
@@ -60,7 +92,7 @@ app.post("/posts", async (req, res) => {
 
 
 // DELETE REQUEST
-// Specifically for deleting a singular post determined by its id
+// Deleting a singular post determined by its id
 app.delete("/posts/:id", async (req, res) => {
     const storyId = req.params.id
     const result = await db.query(`DELETE FROM wk07_submissions WHERE id = $1`, [storyId])
